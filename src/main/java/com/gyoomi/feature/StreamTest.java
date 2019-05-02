@@ -18,7 +18,17 @@ public class StreamTest {
 
     public static void main(String[] args) throws Exception {
         // test01();
-        test02();
+        // test02();
+        test03();
+    }
+
+    public static void test03() {
+        // 流的迭代, 创建流
+        Stream.iterate(1, t -> 2 * t).limit(10).forEach(System.out::println);
+
+        System.out.println("------------------------------------");
+        // 有限的迭代 小于Predicate：hasNext
+        Stream.iterate(1, t -> t < 10000, t -> 2 * t).forEach(System.out::println);
     }
 
     public static void test02() {
@@ -47,7 +57,5 @@ public class StreamTest {
         // 可以看出并没报错
     }
 
-    public static void test03() {
 
-    }
 }

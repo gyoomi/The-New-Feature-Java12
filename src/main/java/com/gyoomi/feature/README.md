@@ -74,10 +74,80 @@
         // 可以看出并没报错
 ```
 2.2 takeWhile 和 dropWhile
-
+``` 
+        List<Integer> list = List.of(1, 2, 3, 4, 5, 6, 7, 8);
+        // 从流中一直获取判定器为真的元素, 一旦遇到元素为假, 就终止处理
+        list.stream().takeWhile(x -> x < 3).forEach(System.out::println);
+        System.out.println("------------------------------------------");
+        // 从流中一直获取判定器为假的元素, 遇到元素为真, 就忽略跳过
+        list.stream().dropWhile(x -> x < 3).forEach(System.out::println);
+```
 2.3 iterate重载
 
+``` 
+        // 流的迭代, 创建流
+        Stream.iterate(1, t -> 2 * t).limit(10).forEach(System.out::println);
+
+        System.out.println("------------------------------------");
+        // 有限的迭代 小于Predicate：hasNext
+        Stream.iterate(1, t -> t < 10000, t -> 2 * t).forEach(System.out::println);
+```
+
 #### 3. 新的字符串处理方法
+
+3.1 判断字符串中的字符是否都是空白
+
+``` 
+        // 判断字符串中的字符是否都是空白
+        // 可以看出 空格，换行都是空白
+        String string = " \t  \r\n ";
+        System.out.println(string.isBlank());
+```
+
+3.2 strip去重字符串首尾的空白
+
+``` 
+        // strip去重字符串首尾的空白, 包括英文和其他所有语言中的空白字符
+        var string = " \t  \r\n abc \t ";
+        System.out.println(string.strip());
+        System.out.println(string.strip().length());
+        // abc
+        // 3
+
+        System.out.println("-----------------------------");
+        // trim去重字符串首尾的空白字符, 只能去除码值小于等于32的空白字符
+        var string2 = " \t  \r\n abc \t　　";
+        System.out.println(string2.trim());
+        System.out.println(string2.trim().length());
+```
+
+3.3 去重字符串首部的空白
+
+``` 
+        // 去重字符串首部的空白
+        String string = " \t  \r\nabc ";
+        System.out.println(string.stripLeading());
+        System.out.println(string.stripLeading().length());
+
+        System.out.println("----------------------------");
+
+        // 去重字符串尾部的空白
+        String string2 = " \t  \r\nabc ";
+        System.out.println(string2.stripTrailing());
+        System.out.println(string2.stripTrailing().length());
+```
+
+#### 4. Optional 加强
+
+``` 
+        // of方法中如果传入的参数是null, 会抛出空指针异常
+        // ofNullable可以兼容空指针, 但是实际传入null后要小心
+        // Optional<Object> o = Optional.of(null);
+        Optional<Object> o = Optional.ofNullable(null);
+        // o.orElse(new Object());
+```
+
+#### 5. InputStream 加强
 
 
 
