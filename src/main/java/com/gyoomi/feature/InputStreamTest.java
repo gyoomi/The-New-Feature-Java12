@@ -15,8 +15,7 @@ public class InputStreamTest {
 
     @Test
     public void test01() throws Exception {
-        ClassLoader classLoader = InputStreamTest.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream("1.txt");
+        InputStream inputStream = InputStreamTest.class.getResourceAsStream("/1.txt");
         FileOutputStream fileOutputStream = new FileOutputStream("2.txt");
         inputStream.transferTo(fileOutputStream);
         inputStream.close();
